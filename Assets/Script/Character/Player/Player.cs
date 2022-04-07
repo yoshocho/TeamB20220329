@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public sealed class Player : MonoBehaviour
+public sealed class Player : MonoBehaviour,IDamage
 {
     [SerializeField]
     float _moveSpeed = 10f;
@@ -11,6 +11,9 @@ public sealed class Player : MonoBehaviour
     float _jumpPower = 10f;
 
     bool _isGrand = true;
+
+    [SerializeField]
+    StatusModel _status = new StatusModel();
 
     Animator _anim;
     Rigidbody2D _rb;
@@ -20,6 +23,7 @@ public sealed class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _charaImage = GetComponentInChildren<SpriteRenderer>();
         _anim = GetComponentInChildren<Animator>();
+        _status.SetUp(_status.hp);
     }
 
     void Update()
@@ -76,5 +80,10 @@ public sealed class Player : MonoBehaviour
     {
         if (collision.gameObject.tag != "Grand") return;
         _isGrand = true;
+    }
+
+    public void GetDamage(int damage)
+    {
+        _status.hp -= damage;
     }
 }
