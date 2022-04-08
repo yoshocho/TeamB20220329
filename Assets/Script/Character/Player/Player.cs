@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public sealed class Player : MonoBehaviour,IDamage
+public sealed class Player : CharacterBase
 {
     [SerializeField]
     float _moveSpeed = 10f;
@@ -11,9 +11,6 @@ public sealed class Player : MonoBehaviour,IDamage
     float _jumpPower = 10f;
 
     bool _isGrand = true;
-
-    [SerializeField]
-    StatusModel _status = new StatusModel();
 
     Animator _anim;
     Rigidbody2D _rb;
@@ -61,9 +58,8 @@ public sealed class Player : MonoBehaviour,IDamage
             _anim.SetBool("Move", false);
         }
     }
+
     void Jump() => _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
-
-
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -82,7 +78,7 @@ public sealed class Player : MonoBehaviour,IDamage
         _isGrand = true;
     }
 
-    public void GetDamage(int damage)
+    public override void GetDamage(int damage)
     {
         _status.hp -= damage;
     }
