@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : CharacterBase
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float _moveSpeed;
+
+    Rigidbody _rb;
+
+    private void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+
+    }
+
+    public override void GetDamage(int damage)
+    {
+
     }
 }
