@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using GameUtility.Sound;
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class Player : CharacterBase
 {
@@ -12,6 +12,8 @@ public sealed class Player : CharacterBase
 
     bool _isGrand = true;
 
+    [SerializeField]
+    SEData Jampse = new SEData();
     Animator _anim;
     Rigidbody2D _rb;
     SpriteRenderer _charaImage;
@@ -32,6 +34,7 @@ public sealed class Player : CharacterBase
         {
             _anim.SetBool("Jump", true);
             Jump();
+            SoundManager.PlaySE(Jampse);
         }
     }
 
