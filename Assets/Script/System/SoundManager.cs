@@ -39,6 +39,12 @@ namespace GameUtility
                 _audioSource = GetComponent<AudioSource>();
             }
 
+            protected override void ForcedRunSet()
+            {
+                base.ForcedRunSet();
+                _audioSource = gameObject.AddComponent<AudioSource>();
+            }
+
             public static void PlayBGM(BGMData data)
             {
                 if (!Instance._audioSource || !data.Clip) return;
