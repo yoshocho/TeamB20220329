@@ -11,6 +11,9 @@ public sealed class Player : CharacterBase
     float _jumpPower = 10f;
 
     bool _isGrand = true;
+    [SerializeField]
+    GameObject _deadeffect; //エフェクト
+    
 
     [SerializeField]
     SEData Jampse = new SEData();
@@ -23,6 +26,7 @@ public sealed class Player : CharacterBase
         _charaImage = GetComponentInChildren<SpriteRenderer>();
         _anim = GetComponentInChildren<Animator>();
         _status.SetUp(_status.hp);
+
     }
 
     void Update()
@@ -36,6 +40,9 @@ public sealed class Player : CharacterBase
             Jump();
             SoundManager.PlaySE(Jampse);
         }
+
+        
+
     }
 
 
@@ -84,5 +91,21 @@ public sealed class Player : CharacterBase
     public override void GetDamage(int damage)
     {
         _status.hp -= damage;
+        if (_status.hp <= 0)
+        {
+            // 死亡エフェクトのコピー参照
+            GameObject Deadeffect = null;
+            // コピーに対しての参照を代入する
+            Deadeffect = GameObject.Instantiate(_deadeffect);
+            //プレイヤーの位置にエフェクトを見せる
+            Deadeffect.transform.position = transform.position;
+
+
+            Destroy(Deadeffect, 5f);
+
+
+        }
     }
+    
+
 }
