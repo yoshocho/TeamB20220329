@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grand
   - GimmickObj
+  - Clone
   layers:
   - Default
   - TransparentFX
