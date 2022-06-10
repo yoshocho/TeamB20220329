@@ -12,13 +12,13 @@ public sealed class Player : CharacterBase
     float _jumpPower = 10f;
     [SerializeField]
     GrandChecker _grandChecker;
-    [SerializeField]
+    [SerializeField,Header("減少、増大倍率")]
     float _magnification = 0.1f;
-    [SerializeField]
+    [SerializeField, Header("プレイヤーが大きくなれる最大値")]
     float _maxMagnification = 3.0f;
-    [SerializeField]
+    [SerializeField, Header("プレイヤーが小さくなる最小値")]
     float _minimumMagnification = 0.5f;
-    [SerializeField]
+    [SerializeField, Header("分身オブジェクト")]
     GameObject _cloneObj;
     [SerializeField]
     float _shootSpeed = 5.0f;
@@ -112,6 +112,14 @@ public sealed class Player : CharacterBase
     {
         Debug.Log("Create");
         Vector2 dir = new Vector2(1, 0);
+        if (_minimumSize.x >= transform.localScale.x || _minimumSize.y >= transform.localScale.y)
+        {
+            transform.localScale = _minimumSize;
+            Debug.Log("最小Size");
+            return;
+        }
+        Debug.Log("小さくなる");
+        transform.localScale -= new Vector3(_magnification, _magnification, 0.0f);
         if (_playerDir)
         {
             var cloneobj = Instantiate(_cloneObj, new Vector3(transform.position.x - 0.5f, transform.position.y
@@ -128,16 +136,6 @@ public sealed class Player : CharacterBase
             clone.SetUp();
             clone.Shoot(dir * _shootSpeed);
         }
-
-
-        if (_minimumSize.x >= transform.localScale.x || _minimumSize.y >= transform.localScale.y)
-        {
-            transform.localScale = _minimumSize;
-            Debug.Log("最小Size");
-            return;
-        }
-        Debug.Log("小さくなる");
-        transform.localScale -= new Vector3(_magnification, _magnification, 0.0f);
     }
 
     public bool IsGrand()
