@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 [System.Serializable]
 public class StageData 
 {
-    [SerializeField]
+    [SerializeField,Header("ステージの画像")]
     public Sprite StageImage;
-    [SerializeField]
+    [SerializeField,Header("ステージのScene名")]
     public string SceneName = "";
 }
 public class TitleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, ISelectHandler, ISubmitHandler
