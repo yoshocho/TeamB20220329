@@ -30,16 +30,16 @@ public class ElevatorGimmick : GimmickBase
         seq.Append(transform.DOMove(_defaultPos,_speed));
     }
 
-    public override void Gimmic(bool flag)
-    {
-        Sequence seq = DOTween.Sequence();
-        if (flag)
-        {
-            seq.Append(transform.DOMove(_targetPos, _speed))
-                .OnComplete(() => seq.AppendInterval(2f));
-            seq.Play();
-            return;
-        }
-        seq.Append(transform.DOMove(_defaultPos, _speed));
-    }
+    //public override void Gimmic(bool flag)
+    //{
+    //    Sequence seq = DOTween.Sequence();
+    //    if (flag)
+    //    {
+    //        seq.Append(transform.DOMove(_targetPos, _speed))
+    //            .OnComplete(() => seq.AppendInterval(2f));
+    //        seq.Play();
+    //        return;
+    //    }
+    //    seq.Append(transform.DOMove(_defaultPos, _speed));
+    //}
 }

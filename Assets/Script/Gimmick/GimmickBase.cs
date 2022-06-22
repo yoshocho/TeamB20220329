@@ -10,6 +10,7 @@ public class GimmickBase : MonoBehaviour
     public virtual void GimmicOn()
     {
         Debug.Log("GimmicOn");
+        
     }
 
     /// <summary>
@@ -24,4 +25,6 @@ public class GimmickBase : MonoBehaviour
     {
         
     }
+
+   
 }

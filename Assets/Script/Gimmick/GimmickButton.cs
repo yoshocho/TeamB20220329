@@ -7,13 +7,16 @@ public class GimmickButton : MonoBehaviour
 {
     [SerializeField, Header("起動させたいギミック")]
     GimmickBase _gimmick = default;
-
+    [SerializeField,Header("ギミックが戻るまでの待ち時間")]
+    float _waitTime = 0.0f;
     [SerializeField]
     float _downSpeed = 1.0f;
     [SerializeField]
     float _downPos = -0.3f;
 
     float _defaultPos = 0f;
+
+    Transform _targetChara;
 
     private void Start()
     {
@@ -32,20 +35,15 @@ public class GimmickButton : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "GimmickObj")
         {
-            collision.transform.SetParent(null);
-            transform.DOMoveY(_defaultPos, _downSpeed).OnComplete(() => _gimmick.GimmicEnd());
+            _targetChara = collision.transform;
+            StartCoroutine(Timer());
         }
     }
 
-    private void Update()
+    IEnumerator Timer()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            _gimmick.Gimmic(true);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            _gimmick.Gimmic(false);
-        }
+        yield return new WaitForSeconds(_waitTime);
+        _targetChara.SetParent(null);
+        transform.DOMoveY(_defaultPos, _downSpeed).OnComplete(() => _gimmick.GimmicEnd());
     }
 }
