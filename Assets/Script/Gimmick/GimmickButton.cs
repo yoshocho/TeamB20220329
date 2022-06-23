@@ -7,7 +7,7 @@ public class GimmickButton : MonoBehaviour
 {
     [SerializeField, Header("起動させたいギミック")]
     GimmickBase _gimmick = default;
-    [SerializeField,Header("ギミックが戻るまでの待ち時間")]
+    [SerializeField, Header("ギミックが戻るまでの待ち時間")]
     float _waitTime = 0.0f;
     [SerializeField]
     float _downSpeed = 1.0f;
@@ -18,6 +18,8 @@ public class GimmickButton : MonoBehaviour
 
     Transform _targetChara;
 
+    Player _player;
+
     private void Start()
     {
         _defaultPos = transform.position.y;
@@ -27,7 +29,18 @@ public class GimmickButton : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "GimmickObj")
         {
-            collision.gameObject.transform.SetParent(transform);
+             _player = collision.gameObject.GetComponent<Player>();
+            if (!_player.CanPush) return;
+
+            //collision.gameObject.transform.SetParent(transform);
+            transform.DOMoveY(_downPos, _downSpeed).OnComplete(() => _gimmick.GimmicOn());
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "GimmickObj")
+        {
+            if (_player.CanPush) return;
             transform.DOMoveY(_downPos, _downSpeed).OnComplete(() => _gimmick.GimmicOn());
         }
     }
@@ -39,11 +52,9 @@ public class GimmickButton : MonoBehaviour
             StartCoroutine(Timer());
         }
     }
-
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(_waitTime);
-        _targetChara.SetParent(null);
         transform.DOMoveY(_defaultPos, _downSpeed).OnComplete(() => _gimmick.GimmicEnd());
     }
 }
