@@ -20,12 +20,20 @@ public sealed class Player : CharacterBase
     float _minimumMagnification = 0.5f;
     [SerializeField, Header("分身オブジェクト")]
     GameObject _cloneObj;
+    [SerializeField, Header("ボタンを押せる大きさ")]
+    float _canPushMagnification = 0.7f;
     [SerializeField]
     float _shootSpeed = 5.0f;
+
+    public bool CanPush { get; private set; } = true;
+
+    [SerializeField]
+    SEData[] _seDatas;
 
     bool _playerDir = false;
     Vector3 _maxSize;
     Vector3 _minimumSize;
+    Vector3 _canPushSize;
     Animator _anim;
     Rigidbody2D _rb;
     SpriteRenderer _charaImage;
@@ -39,6 +47,9 @@ public sealed class Player : CharacterBase
         _status.SetUp(_status.hp);
         _maxSize = new Vector3(_maxMagnification, _maxMagnification, 1.0f);
         _minimumSize = new Vector3(_minimumMagnification, _minimumMagnification, 1.0f);
+        _canPushSize = new Vector3(_canPushMagnification, _canPushMagnification, 1.0f);
+        if (_canPushSize.x >= transform.localScale.x || _canPushSize.y >= transform.localScale.y) CanPush = false;
+
     }
 
     void Update()
@@ -93,14 +104,17 @@ public sealed class Player : CharacterBase
         Debug.Log("CloneにHit");
         Clone clone = collision.collider.GetComponent<Clone>();
         if (!clone.CanCatch) return;
+
         if (_maxSize.x <= transform.localScale.x || _maxSize.y <= transform.localScale.y)
         {
             transform.localScale = _maxSize;
+            if (_canPushSize.x <= transform.localScale.x || _canPushSize.y <= transform.localScale.y) CanPush = true;
             Debug.Log("最大Size");
             return;
         }
         Debug.Log("大きくなる");
         transform.localScale += new Vector3(_magnification, _magnification, 0.0f);
+        if (_canPushSize.x <= transform.localScale.x || _canPushSize.y <= transform.localScale.y) CanPush = true;
         Destroy(collision.gameObject);
     }
     void Jump() => _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
@@ -115,11 +129,13 @@ public sealed class Player : CharacterBase
         if (_minimumSize.x >= transform.localScale.x || _minimumSize.y >= transform.localScale.y)
         {
             transform.localScale = _minimumSize;
+            if (_canPushSize.x >= transform.localScale.x || _canPushSize.y >= transform.localScale.y) CanPush = false;
             Debug.Log("最小Size");
             return;
         }
         Debug.Log("小さくなる");
         transform.localScale -= new Vector3(_magnification, _magnification, 0.0f);
+        if (_canPushSize.x >= transform.localScale.x || _canPushSize.y >= transform.localScale.y) CanPush = false;
         if (_playerDir)
         {
             var cloneobj = Instantiate(_cloneObj, new Vector3(transform.position.x - 0.5f, transform.position.y
