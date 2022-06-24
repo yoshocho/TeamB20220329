@@ -13,42 +13,37 @@ public class GimmickButton : MonoBehaviour
     float _downSpeed = 1.0f;
     [SerializeField]
     float _downPos = -0.3f;
-
+    [SerializeField]
+    CollisionEvent _collisionEvent;
     float _defaultPos = 0f;
-
-    Transform _targetChara;
 
     Player _player;
 
     private void Start()
     {
         _defaultPos = transform.position.y;
+        _collisionEvent
+            .SetCollisionEnterEv(CollisionEnterEvent)
+            .SetCollisionExitEv(CollisionExitEvent);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void CollisionEnterEvent(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "GimmickObj")
         {
-             _player = collision.gameObject.GetComponent<Player>();
+            _player = collision.gameObject.GetComponent<Player>();
             if (!_player.CanPush) return;
 
-            //collision.gameObject.transform.SetParent(transform);
+            collision.gameObject.transform.SetParent(transform);
             transform.DOMoveY(_downPos, _downSpeed).OnComplete(() => _gimmick.GimmicOn());
         }
     }
-    private void OnCollisionStay(Collision collision)
+
+    public void CollisionExitEvent(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "GimmickObj")
         {
-            if (_player.CanPush) return;
-            transform.DOMoveY(_downPos, _downSpeed).OnComplete(() => _gimmick.GimmicOn());
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "GimmickObj")
-        {
-            _targetChara = collision.transform;
+            collision.gameObject.transform.SetParent(null);
             StartCoroutine(Timer());
         }
     }
