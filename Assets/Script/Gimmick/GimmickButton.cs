@@ -12,9 +12,9 @@ public class GimmickButton : MonoBehaviour
     [SerializeField]
     float _downSpeed = 1.0f;
     [SerializeField]
-    float _downPos = -0.3f;
-    [SerializeField]
     CollisionEvent _collisionEvent;
+    [SerializeField]
+    Transform _downPos;
     float _defaultPos = 0f;
 
     Player _player;
@@ -35,7 +35,7 @@ public class GimmickButton : MonoBehaviour
             if (!_player.CanPush) return;
 
             collision.gameObject.transform.SetParent(transform);
-            transform.DOMoveY(_downPos, _downSpeed).OnComplete(() => _gimmick.GimmicOn());
+            transform.DOMoveY(_downPos.position.y, _downSpeed).OnComplete(() => _gimmick.GimmicOn());
         }
     }
 
