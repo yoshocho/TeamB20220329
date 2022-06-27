@@ -12,11 +12,16 @@ public class StageData
     [SerializeField,Header("ステージのScene名")]
     public string SceneName = "";
 }
-public class TitleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, ISelectHandler, ISubmitHandler
+public class StageSelectButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, ISelectHandler, ISubmitHandler,IPointerExitHandler
 {
     [SerializeField]
     StageData _stageData = new StageData();
-
+    [SerializeField]
+    Animator _anim;
+    private void Start()
+    {
+        if(!_anim) _anim = GetComponent<Animator>();
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("OnClick");
@@ -25,6 +30,7 @@ public class TitleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("OnEnter");
+        _anim.Play("Select");
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -36,5 +42,11 @@ public class TitleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public void OnSubmit(BaseEventData eventData)
     {
         Debug.Log("Submit");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("Exit");
+        _anim.Play("Close");
     }
 }
