@@ -219,6 +219,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 956003898}
     m_Modifications:
+    - target: {fileID: 7265128354960157611, guid: 1e1f169334cba074e9ddb55861b04666, type: 3}
+      propertyPath: _stageData.SceneName
+      value: GameScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265128354960157611, guid: 1e1f169334cba074e9ddb55861b04666, type: 3}
+      propertyPath: _stageData.StageImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e0310b0e88bc8e46b000d4a9656cd87, type: 3}
     - target: {fileID: 7898289199377104228, guid: 1e1f169334cba074e9ddb55861b04666, type: 3}
       propertyPath: _stageData.SceneName
       value: GameScene
@@ -992,7 +1000,7 @@ Transform:
 --- !u!224 &1619124877 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7898289199377104248, guid: 1e1f169334cba074e9ddb55861b04666, type: 3}
-  m_PrefabInstance: {fileID: 7898289200996081653}
+  m_PrefabInstance: {fileID: 7265128356579199269}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1787341714
 GameObject:
@@ -1453,7 +1461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9645d808809638049b97721d62d64f2b, type: 3}
---- !u!1001 &7898289200996081653
+--- !u!1001 &7265128356579199269
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
