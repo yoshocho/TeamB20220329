@@ -17,7 +17,7 @@ public class GimmickButton : MonoBehaviour
     Transform _downPos;
     float _defaultPos = 0f;
 
-    Player _player;
+    SizeCtrl _player;
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class GimmickButton : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "GimmickObj")
         {
-            _player = collision.gameObject.GetComponent<Player>();
+            _player = collision.gameObject.GetComponent<SizeCtrl>();
             if (!_player.CanPush) return;
 
             collision.gameObject.transform.SetParent(transform);
