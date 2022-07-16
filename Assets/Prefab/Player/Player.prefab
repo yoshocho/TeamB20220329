@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 7460129143963417592}
   - component: {fileID: 7460129143963417593}
   - component: {fileID: 7460129143963417594}
+  - component: {fileID: 7460129143798664845}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -271,8 +272,30 @@ MonoBehaviour:
   _moveSpeed: 7.7
   _jumpPower: 14.06
   _grandChecker: {fileID: 1278863059}
+  _shootSpeed: 8.65
+  _playerSEs:
+  - Type: 0
+    SeData:
+      Clip: {fileID: 8300000, guid: 161c7f52d7cc3274c828ef03dd5f502e, type: 3}
+      Volume: 0.96
+  - Type: 1
+    SeData:
+      Clip: {fileID: 8300000, guid: 353f0ffd7cbe5a1449b003ecd5e28e88, type: 3}
+      Volume: 1.21
+--- !u!114 &7460129143798664845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460129143963417573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b92983f35771e4cabe942f5c639580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _magnification: 0.1
   _maxMagnification: 3
   _minimumMagnification: 0.5
   _cloneObj: {fileID: 2765635852505067864, guid: 2243dc390e9a5a34ab6bff3c2693f0ad, type: 3}
-  _shootSpeed: 8.65
+  _canPushMagnification: 0.7
