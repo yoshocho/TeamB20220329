@@ -2,10 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameUtility.Sound;
+using System.Linq;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class Player : CharacterBase
 {
+    public enum SEType
+    {
+        Jump,
+        Shoot,
+    }
+    [System.Serializable]
+    public class PlayerSE 
+    {
+        [SerializeField]
+        public SEType Type;
+        [SerializeField]
+        public SEData SeData;
+    }
+
+
+
     [SerializeField]
     float _moveSpeed = 10f;
     [SerializeField]
@@ -25,11 +42,12 @@ public sealed class Player : CharacterBase
     [SerializeField]
     float _shootSpeed = 5.0f;
 
+    [SerializeField]
+    List<PlayerSE> _playerSEs = new List<PlayerSE>();
+
     public bool CanPush { get; private set; } = true;
 
-    [SerializeField]
-    SEData[] _seDatas;
-
+    
     bool _playerDir = false;
     Vector3 _maxSize;
     Vector3 _minimumSize;
@@ -37,6 +55,7 @@ public sealed class Player : CharacterBase
     Animator _anim;
     Rigidbody2D _rb;
     SpriteRenderer _charaImage;
+    SizeCtrl _sizeCtrl;
 
     void Start()
     {
@@ -44,12 +63,10 @@ public sealed class Player : CharacterBase
         if (!_grandChecker) _grandChecker = GetComponentInChildren<GrandChecker>();
         _charaImage = GetComponentInChildren<SpriteRenderer>();
         _anim = GetComponentInChildren<Animator>();
+        _sizeCtrl = GetComponent<SizeCtrl>();
+        _sizeCtrl.SetUp();
         _status.SetUp(_status.hp);
-        _maxSize = new Vector3(_maxMagnification, _maxMagnification, 1.0f);
-        _minimumSize = new Vector3(_minimumMagnification, _minimumMagnification, 1.0f);
-        _canPushSize = new Vector3(_canPushMagnification, _canPushMagnification, 1.0f);
-        if (_canPushSize.x >= transform.localScale.x || _canPushSize.y >= transform.localScale.y) CanPush = false;
-
+        
     }
 
     void Update()
@@ -60,7 +77,8 @@ public sealed class Player : CharacterBase
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("shoot");
-            CreateClone();
+            _sizeCtrl.CreateClone(_playerDir,_shootSpeed,
+                () => SoundManager.PlaySE(_playerSEs.First(s => s.Type == SEType.Shoot).SeData));
         }
 
 
@@ -99,61 +117,14 @@ public sealed class Player : CharacterBase
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Hit");
-        if (!collision.collider.CompareTag("Clone")) return;
-        Debug.Log("CloneÇ…Hit");
-        Clone clone = collision.collider.GetComponent<Clone>();
-        if (!clone.CanCatch) return;
-
-        if (_maxSize.x <= transform.localScale.x || _maxSize.y <= transform.localScale.y)
-        {
-            transform.localScale = _maxSize;
-            if (_canPushSize.x <= transform.localScale.x || _canPushSize.y <= transform.localScale.y) CanPush = true;
-            Debug.Log("ç≈ëÂSize");
-            return;
-        }
-        Debug.Log("ëÂÇ´Ç≠Ç»ÇÈ");
-        transform.localScale += new Vector3(_magnification, _magnification, 0.0f);
-        if (_canPushSize.x <= transform.localScale.x || _canPushSize.y <= transform.localScale.y) CanPush = true;
-        Destroy(collision.gameObject);
+        _sizeCtrl.OnCollisionEvent(collision);
     }
-    void Jump() => _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
-
-    /// <summary>
-    /// ï™êgÇê∂ê¨Ç∑ÇÈ
-    /// </summary>
-    void CreateClone()
+    void Jump() 
     {
-        Debug.Log("Create");
-        Vector2 dir = new Vector2(1, 0);
-        if (_minimumSize.x >= transform.localScale.x || _minimumSize.y >= transform.localScale.y)
-        {
-            transform.localScale = _minimumSize;
-            if (_canPushSize.x >= transform.localScale.x || _canPushSize.y >= transform.localScale.y) CanPush = false;
-            Debug.Log("ç≈è¨Size");
-            return;
-        }
-        Debug.Log("è¨Ç≥Ç≠Ç»ÇÈ");
-        transform.localScale -= new Vector3(_magnification, _magnification, 0.0f);
-        if (_canPushSize.x >= transform.localScale.x || _canPushSize.y >= transform.localScale.y) CanPush = false;
-        if (_playerDir)
-        {
-            var cloneobj = Instantiate(_cloneObj, new Vector3(transform.position.x - 0.5f, transform.position.y
-                , transform.position.z), Quaternion.identity);
-            var clone = cloneobj.GetComponent<Clone>();
-            clone.SetUp();
-            clone.Shoot(-dir * _shootSpeed);
-        }
-        else
-        {
-            var cloneobj = Instantiate(_cloneObj, new Vector3(transform.position.x + 0.5f, transform.position.y
-               , transform.position.z), Quaternion.identity);
-            var clone = cloneobj.GetComponent<Clone>();
-            clone.SetUp();
-            clone.Shoot(dir * _shootSpeed);
-        }
+        _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
+        PlayerSE data = _playerSEs.FirstOrDefault(s => s.Type == SEType.Jump);
+        SoundManager.PlaySE(data.SeData);
     }
-
     public bool IsGrand()
     {
         return _grandChecker.IsGrand;
