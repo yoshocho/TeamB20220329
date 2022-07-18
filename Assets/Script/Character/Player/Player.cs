@@ -20,25 +20,12 @@ public sealed class Player : CharacterBase
         [SerializeField]
         public SEData SeData;
     }
-
-
-
     [SerializeField]
     float _moveSpeed = 10f;
     [SerializeField]
     float _jumpPower = 10f;
     [SerializeField]
     GrandChecker _grandChecker;
-    [SerializeField,Header("減少、増大倍率")]
-    float _magnification = 0.1f;
-    [SerializeField, Header("プレイヤーが大きくなれる最大値")]
-    float _maxMagnification = 3.0f;
-    [SerializeField, Header("プレイヤーが小さくなる最小値")]
-    float _minimumMagnification = 0.5f;
-    [SerializeField, Header("分身オブジェクト")]
-    GameObject _cloneObj;
-    [SerializeField, Header("ボタンを押せる大きさ")]
-    float _canPushMagnification = 0.7f;
     [SerializeField]
     float _shootSpeed = 5.0f;
 
@@ -49,9 +36,6 @@ public sealed class Player : CharacterBase
 
     
     bool _playerDir = false;
-    Vector3 _maxSize;
-    Vector3 _minimumSize;
-    Vector3 _canPushSize;
     Animator _anim;
     Rigidbody2D _rb;
     SpriteRenderer _charaImage;
