@@ -9,13 +9,14 @@ public class SpownBlock : GimmickBase
         gameObject.SetActive(false);
     }
 
-    public override void Gimmic(bool flag)
+    public override void GimmicOn()
     {
-        if (flag)
-        {
-            gameObject.SetActive(true);
-            return;
-        }
+        base.GimmicOn();
+        gameObject.SetActive(true);
+    }
+    public override void GimmicEnd()
+    {
+        base.GimmicEnd();
         gameObject.SetActive(false);
     }
 }
