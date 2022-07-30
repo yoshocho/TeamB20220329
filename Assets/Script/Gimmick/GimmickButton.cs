@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using GameUtility.Sound;
 
 public class GimmickButton : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class GimmickButton : MonoBehaviour
     [SerializeField]
     Transform _downPos;
     float _defaultPos = 0f;
-
+    [SerializeField]
+    SEData[] _sEDatas;
     SizeCtrl _player;
 
     private void Start()
@@ -36,6 +38,7 @@ public class GimmickButton : MonoBehaviour
 
             collision.gameObject.transform.SetParent(transform);
             transform.DOMoveY(_downPos.position.y, _downSpeed).OnComplete(() => _gimmick.GimmicOn());
+            SoundManager.PlaySE(_sEDatas[0]);
         }
     }
 
@@ -45,6 +48,7 @@ public class GimmickButton : MonoBehaviour
         {
             collision.gameObject.transform.SetParent(null);
             StartCoroutine(Timer());
+            SoundManager.PlaySE(_sEDatas[1]);
         }
     }
     IEnumerator Timer()
