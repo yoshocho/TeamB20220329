@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using GameUtility.Sound;
 
 [System.Serializable]
 public class StageData 
@@ -18,6 +19,8 @@ public class StageSelectButton : MonoBehaviour, IPointerClickHandler, IPointerEn
     StageData _stageData = new StageData();
     [SerializeField]
     Animator _anim;
+    [SerializeField]
+    SEData[] _seDatas;
     private void Start()
     {
         if(!_anim) _anim = GetComponent<Animator>();
@@ -30,12 +33,14 @@ public class StageSelectButton : MonoBehaviour, IPointerClickHandler, IPointerEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("OnEnter");
+        SoundManager.PlaySE(_seDatas[0]);
         _anim.Play("Select");
     }
 
     public void OnSelect(BaseEventData eventData)
     {
         Debug.Log("Select");
+        SoundManager.PlaySE(_seDatas[1]);
         StageView.Instance.SetImage(_stageData);
     }
 
