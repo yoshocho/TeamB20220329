@@ -43,6 +43,7 @@ namespace GameUtility
             {
                 base.ForcedRunSet();
                 _audioSource = gameObject.AddComponent<AudioSource>();
+                _audioSource.loop = true;
             }
 
             public static void PlayBGM(BGMData data)
