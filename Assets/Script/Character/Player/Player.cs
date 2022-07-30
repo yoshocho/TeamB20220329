@@ -34,7 +34,7 @@ public sealed class Player : CharacterBase
 
     public bool CanPush { get; private set; } = true;
 
-    
+    public bool CanMove { get; set; } = true;
     bool _playerDir = false;
     Animator _anim;
     Rigidbody2D _rb;
@@ -55,7 +55,7 @@ public sealed class Player : CharacterBase
 
     void Update()
     {
-
+        if (!CanMove) return;
         ApplyMove();
 
         if (Input.GetKeyDown(KeyCode.E))
