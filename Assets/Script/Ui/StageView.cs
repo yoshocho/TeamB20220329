@@ -25,6 +25,7 @@ public class StageView : MonoBehaviour
     
     public void ChangeSelectScene() 
     {
+        if (StageData == null || StageData.SceneName.Length <= 0) return;
         SceneChanger.FadeScene(StageData.SceneName);
     }
 }
