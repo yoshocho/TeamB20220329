@@ -1,4 +1,5 @@
 using UnityEngine;
+using GameUtility.Sound;
 
 namespace GameUtility
 {
@@ -29,7 +30,11 @@ namespace GameUtility
                     break;
                 case GameState.GameClear:
                     Debug.Log("GameClear");
-                    SceneChanger.FadeScene("TitleScene", 2.0f);
+                    //SceneChanger.FadeScene("TitleScene", 2.0f);
+                    var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+                    player.CanMove = false;
+                    SoundManager.PauseBGM();
+
                     break;
                 default:
                     break;
