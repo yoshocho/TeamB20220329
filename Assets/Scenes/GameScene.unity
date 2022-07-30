@@ -2143,6 +2143,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7460129143963417594, guid: 1c17ce21915c1254d9d37bd21cc38f0a, type: 3}
+      propertyPath: Hp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460129143963417594, guid: 1c17ce21915c1254d9d37bd21cc38f0a, type: 3}
+      propertyPath: Jampse.Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 76005ed4e9524c64f8e98e7305c89a1c, type: 3}
+    - target: {fileID: 7460129143963417594, guid: 1c17ce21915c1254d9d37bd21cc38f0a, type: 3}
+      propertyPath: Jampse.Volume
+      value: 1.34
+      objectReference: {fileID: 0}
     - target: {fileID: 7460129143963417595, guid: 1c17ce21915c1254d9d37bd21cc38f0a, type: 3}
       propertyPath: m_RootOrder
       value: 5
