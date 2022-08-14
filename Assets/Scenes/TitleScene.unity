@@ -2236,7 +2236,15 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 6279d5a737b97ac4893f6df55a53e392, type: 3}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.Volume
-      value: 0.244
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
+      propertyPath: _bgm.StartLoop
+      value: 564480
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
+      propertyPath: _bgm.LoopLength
+      value: 1128960
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721731, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: m_Name
