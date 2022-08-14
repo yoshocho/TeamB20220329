@@ -14,8 +14,12 @@ namespace GameUtility
         {
             [SerializeField]
             public AudioClip Clip;
-            [SerializeField, Range(0, 2.0f)]
+            [SerializeField]
             public float Volume = 1.0f;
+            [SerializeField]
+            public int StartLoop;
+            [SerializeField]
+            public int LoopLength;
         }
 
         /// <summary>
@@ -26,13 +30,16 @@ namespace GameUtility
         {
             [SerializeField]
             public AudioClip Clip;
-            [SerializeField, Range(0, 2.0f)]
+            [SerializeField]
             public float Volume = 1.0f;
         }
         public class SoundManager : SingleMonoBehaviour<SoundManager>
         {
 
             AudioSource _audioSource;
+
+            int _loopStart = 0;
+            int _loopLength = 0;
 
             protected override void OnAwake()
             {
@@ -43,7 +50,17 @@ namespace GameUtility
             {
                 base.ForcedRunSet();
                 _audioSource = gameObject.AddComponent<AudioSource>();
-                _audioSource.loop = true;
+                //_audioSource.loop = true;
+            }
+
+            private void Update()
+            {
+                if (!_audioSource.isPlaying) _audioSource.timeSamples = 0;
+
+                if (_audioSource.timeSamples > _loopLength + _loopStart)
+                {
+                    _audioSource.timeSamples = _loopStart + (_audioSource.timeSamples - _loopStart - 1) % _loopLength;
+                }
             }
 
             public static void PlayBGM(BGMData data)
@@ -52,6 +69,9 @@ namespace GameUtility
 
                 Instance._audioSource.clip = data.Clip;
                 Instance._audioSource.volume = data.Volume;
+                //
+                Instance._loopLength = data.LoopLength;
+                Instance._loopStart = data.StartLoop;
                 Instance._audioSource.Play();
             }
             public static void PauseBGM()
