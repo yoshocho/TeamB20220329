@@ -77,7 +77,10 @@ public sealed class Player : CharacterBase
     void ApplyMove()
     {
         _rb.velocity *= new Vector2(0, 1);
-        if (Input.GetKey(KeyCode.A))
+
+        float horizontalAxis = Input.GetAxisRaw("Horizontal");
+        //Debug.Log(horizontalAxis);
+        if (horizontalAxis == -1.0f)
         {
             _charaImage.flipX = true;
             _playerDir = _charaImage.flipX;
@@ -85,7 +88,7 @@ public sealed class Player : CharacterBase
             else _anim.SetBool("Move", false);
             _rb.velocity = new Vector2(-_moveSpeed, _rb.velocity.y);
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (horizontalAxis == 1.0f)
         {
             _charaImage.flipX = false;
             _playerDir = _charaImage.flipX;
