@@ -4666,6 +4666,10 @@ PrefabInstance:
       value: Goal
       objectReference: {fileID: 0}
     - target: {fileID: 466127015429836761, guid: 169433ed8fff84b4191dac85a7faef83, type: 3}
+      propertyPath: _clearBGM.Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 466127015429836761, guid: 169433ed8fff84b4191dac85a7faef83, type: 3}
       propertyPath: _clearBGM.StartLoop
       value: 61740
       objectReference: {fileID: 0}
@@ -4959,7 +4963,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: bbd5f95e66d318a41bfd5c26b50a3096, type: 3}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.Volume
-      value: 0.556
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.StartLoop
