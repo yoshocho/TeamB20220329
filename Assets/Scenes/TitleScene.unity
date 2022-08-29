@@ -2240,11 +2240,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.StartLoop
-      value: 564480
+      value: 153391
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.LoopLength
-      value: 1128960
+      value: 1227130
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721731, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: m_Name
