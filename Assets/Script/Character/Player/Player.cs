@@ -5,7 +5,7 @@ using GameUtility.Sound;
 using System.Linq;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public sealed class Player : CharacterBase
+public sealed class Player : CharacterBase,IRBCtrl
 {
     public enum SEType
     {
@@ -35,6 +35,8 @@ public sealed class Player : CharacterBase
     public bool CanPush { get; private set; } = true;
 
     public bool CanMove { get; set; } = true;
+    public Rigidbody2D RB { get => _rb; }
+
     bool _playerDir = false;
     Animator _anim;
     Rigidbody2D _rb;
