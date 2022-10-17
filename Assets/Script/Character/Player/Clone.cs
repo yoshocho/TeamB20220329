@@ -6,13 +6,14 @@ using UnityEngine;
 /// プレイヤーの分身クラス
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class Clone : MonoBehaviour
+public class Clone : MonoBehaviour,IRBCtrl
 {
     [SerializeField]
     float _waitTimer = 1.0f;
     Rigidbody2D _rb;
     public bool CanCatch { get; private set; } = false;
 
+    public Rigidbody2D RB => _rb;
 
     private void Start()
     {

@@ -17,6 +17,8 @@ public class SizeCtrl : MonoBehaviour
     [SerializeField, Header("ƒ{ƒ^ƒ“‚ð‰Ÿ‚¹‚é‘å‚«‚³")]
     float _canPushMagnification = 0.7f;
 
+    public float CanActionSize => _canPushMagnification;
+
     public Vector3 MaxSize { get; private set; }
     public Vector3 MinimumSize { get; private set; }
     Vector3 _canPushSize;
