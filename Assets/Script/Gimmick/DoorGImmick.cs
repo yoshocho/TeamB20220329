@@ -11,9 +11,7 @@ public class DoorGImmick : GimmickBase
     float _speed = 2.0f;
     Vector3 _defaultPos = default;
     Vector3 _targetPos = default;
-    [SerializeField]
-    float MoveHeight ;
-
+    
     private void Start()
     {
         _defaultPos = transform.position;
@@ -22,9 +20,7 @@ public class DoorGImmick : GimmickBase
     public override void GimmicOn()
     {
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMoveY(MoveHeight, _speed));
-        seq.AppendInterval(1.0f);
-        seq.Play();
+        seq.Append(transform.DOMoveY(_targetPos.y, _speed));
         Debug.Log("GimmicOn");
 
 
