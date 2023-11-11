@@ -2363,18 +2363,18 @@ PrefabInstance:
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.Clip
       value: 
-      objectReference: {fileID: 8300000, guid: bbd5f95e66d318a41bfd5c26b50a3096, type: 3}
+      objectReference: {fileID: 8300000, guid: 283fd31567f11ae4195e5e35b282a597, type: 3}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.Volume
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.StartLoop
-      value: 151120
+      value: 251120
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721730, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: _bgm.LoopLength
-      value: 1270079
+      value: 2540158
       objectReference: {fileID: 0}
     - target: {fileID: 4869603613255721731, guid: 9645d808809638049b97721d62d64f2b, type: 3}
       propertyPath: m_Name
